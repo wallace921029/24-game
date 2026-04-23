@@ -79,7 +79,7 @@ export function HomePage() {
         </h1>
         <div className="flex gap-6 justify-center">
           <Link
-            to="/24-game"
+            to="/single-mode"
             className="group relative px-8 py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all"
           >
             开始挑战

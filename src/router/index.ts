@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     Component: ShowcasePage,
   },
   {
-    path: '/24-game',
+    path: '/single-mode',
     Component: GamePage,
   },
 ])
