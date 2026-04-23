@@ -113,13 +113,13 @@ docker build -t 24-game:latest .
 Run the container manually:
 
 ```bash
-docker run -d --name 24-game -p 80:80 --restart unless-stopped 24-game:latest
+docker run -d --name 24-game -p 10024:80 --restart unless-stopped 24-game:latest
 ```
 
 Open the app:
 
 ```text
-http://localhost
+http://localhost:10024
 ```
 
 ## Docker Compose Deployment
@@ -130,18 +130,17 @@ Start the app with Docker Compose:
 docker compose up -d
 ```
 
-By default, the compose file publishes the app on host port `80`.
+The compose file publishes container port `80` on host port `10024`:
 
-To use another host port, set `APP_PORT`:
-
-```bash
-APP_PORT=8080 docker compose up -d
+```yaml
+ports:
+  - "10024:80"
 ```
 
-Then open:
+Open the app:
 
 ```text
-http://localhost:8080
+http://localhost:10024
 ```
 
 View logs:
@@ -170,11 +169,13 @@ Install Docker Engine and the Compose plugin using Docker's official Ubuntu inst
 docker compose up -d --build
 ```
 
-If another service already uses port `80`, choose another host port:
+The app will be available on port `10024` of the server:
 
-```bash
-APP_PORT=8080 docker compose up -d --build
+```text
+http://SERVER_IP:10024
 ```
+
+If another service already uses port `10024`, change the left side of the port mapping in `docker-compose.yaml`, for example `"8080:80"`.
 
 ## Application Routes
 
