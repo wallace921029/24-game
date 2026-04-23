@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { PlayingCard } from '../cards/PlayingCard'
 import type { CardItem } from './game.types'
 
@@ -9,20 +8,11 @@ interface FlipZoneProps {
 }
 
 export function FlipZone({ cards, onMove, dealingStage }: FlipZoneProps) {
-  const [capturedCards, setCapturedCards] = useState<CardItem[]>([])
-
-  useEffect(() => {
-    if (dealingStage === 'gathering') {
-      setCapturedCards(cards)
-    }
-  }, [dealingStage, cards])
-
   const isDealing = dealingStage !== 'idle'
-  const displayCards = dealingStage === 'gathering' ? capturedCards : cards
 
-  if (displayCards.length === 0 && !isDealing) return (
-    <div className="flex flex-col items-center gap-4 opacity-10">
-      <div className="flex gap-3 items-center p-3 rounded-2xl border-2 border-dashed border-white/40 h-[136px] min-w-[360px] justify-center">
+  if (cards.length === 0 && !isDealing) return (
+    <div className="flex flex-col items-center gap-3 sm:gap-4 opacity-10">
+      <div className="flex gap-3 items-center p-3 rounded-2xl border-2 border-dashed border-white/40 h-[136px] w-[min(360px,calc(100vw-2rem))] justify-center">
         <span className="text-white/40 text-sm font-bold uppercase tracking-widest">Waiting...</span>
       </div>
       <span className="text-[10px] text-white/40 font-bold uppercase tracking-tighter">Dealt Cards</span>
@@ -30,16 +20,16 @@ export function FlipZone({ cards, onMove, dealingStage }: FlipZoneProps) {
   )
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-3 sm:gap-4">
       <button
         onClick={onMove}
         disabled={isDealing}
         className={[
-          "group relative flex gap-4 items-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300 shadow-xl active:scale-95 active:translate-y-1",
+          "group relative flex flex-wrap justify-center gap-3 sm:gap-4 items-center p-3 sm:p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300 shadow-xl active:scale-95 active:translate-y-1",
           isDealing ? "cursor-wait" : "cursor-pointer"
         ].join(' ')}
       >
-        {displayCards.map((card, idx) =>
+        {cards.map((card, idx) =>
           card.kind === 'poker' ? (
             <div 
               key={`${dealingStage}-${card.id}`} 
@@ -51,9 +41,9 @@ export function FlipZone({ cards, onMove, dealingStage }: FlipZoneProps) {
               ].join(' ')}
               style={{ 
                 animationDelay: dealingStage === 'flying' ? `${idx * 80}ms` : 
-                                dealingStage === 'gathering' ? `${(displayCards.length - 1 - idx) * 60}ms` : 
+                                dealingStage === 'gathering' ? `${(cards.length - 1 - idx) * 60}ms` : 
                                 '0ms',
-                zIndex: displayCards.length - idx 
+                zIndex: cards.length - idx 
               }}
             >
               <PlayingCard suit={card.suit} rank={card.rank} face="back" size="md" />

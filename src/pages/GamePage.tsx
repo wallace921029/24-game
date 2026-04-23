@@ -73,7 +73,7 @@ export function GamePage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col text-left bg-felt selection:bg-white/20"
+      className="min-h-screen flex flex-col overflow-x-hidden text-left bg-felt selection:bg-white/20"
     >
       {phase === 'success' && (
         <div className="fixed top-0 left-0 w-full bg-green-500/90 text-white text-center py-4 text-xl font-bold animate-slide-down z-50 shadow-lg backdrop-blur-sm">
@@ -81,9 +81,9 @@ export function GamePage() {
         </div>
       )}
 
-      <div className="flex-1 flex flex-col gap-12 p-8 max-w-6xl mx-auto w-full">
-        <header className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
+      <div className="flex-1 min-h-0 flex flex-col gap-4 p-4 max-w-6xl mx-auto w-full">
+        <header className="shrink-0 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-4 sm:gap-5">
             <Link to="/">
               <Button 
                 variant="outline" 
@@ -94,8 +94,8 @@ export function GamePage() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-4xl font-black text-white tracking-tight">24-GAME</h1>
-              <p className="text-white/40 text-sm font-medium uppercase tracking-widest mt-1">Classic Card Puzzle</p>
+              <h1 className="text-3xl font-black text-white tracking-tight">24-GAME</h1>
+              <p className="text-white/40 text-xs sm:text-sm font-medium uppercase tracking-widest mt-0.5">Classic Card Puzzle</p>
             </div>
           </div>
           
@@ -108,20 +108,20 @@ export function GamePage() {
           </div>
         </header>
 
-        <main className="flex-1 flex flex-col gap-16">
-          <section className="flex items-center justify-center gap-12 py-8 rounded-3xl bg-black/10 border border-white/5 shadow-inner">
+        <main className="flex-1 min-h-0 flex flex-col gap-4">
+          <section className="shrink-0 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-7 lg:gap-8 px-4 py-3 rounded-3xl bg-black/10 border border-white/5 shadow-inner">
             <DeckArea onClick={deal} disabled={(phase !== 'idle' && phase !== 'flip') || isDealing} />
-            <div className="h-20 w-px bg-white/10" />
+            <div className="hidden sm:block h-20 w-px bg-white/10" />
             <FlipZone cards={flipCards} onMove={moveToArrangement} dealingStage={dealingStage} />
           </section>
 
           {showArrangement && (
-            <section className="flex flex-col items-center gap-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <section className="flex-1 min-h-[300px] flex flex-col items-center justify-center animate-in fade-in slide-in-from-bottom-8 duration-700">
               {/* Play Area Container - Apple Glassmorphism with Log */}
-              <div className="relative w-full rounded-[3.5rem] bg-white/5 backdrop-blur-3xl border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] overflow-visible">
+              <div className="relative w-full h-full min-h-[300px] max-h-[460px] rounded-[2rem] sm:rounded-[3rem] bg-white/5 backdrop-blur-3xl border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] overflow-visible">
                 
                 {/* Minimal Header Bar */}
-                <div className="absolute top-6 left-8 right-8 flex justify-between items-center z-40">
+                <div className="absolute top-4 sm:top-5 left-5 sm:left-7 right-5 sm:right-7 flex justify-between items-center z-40">
                   <span className="text-[10px] text-white/20 font-black uppercase tracking-[0.4em] select-none">Game Board</span>
                   
                   <div className="flex gap-6 items-center pr-2">
@@ -142,9 +142,9 @@ export function GamePage() {
                   </div>
                 </div>
 
-                <div className="flex gap-0 h-[420px]">
+                <div className="flex flex-col md:flex-row gap-0 h-full">
                   {/* Left: Main Play Zone */}
-                  <div className="flex-1 relative flex flex-col items-center justify-center p-12 mt-4">
+                  <div className="flex-1 min-h-0 relative flex flex-col items-center justify-center p-6 sm:p-8 lg:p-10 mt-4">
                     <ArrangementZone
                       cards={arrangementCards}
                       selectedId={selectedId}
@@ -156,11 +156,11 @@ export function GamePage() {
                     />
                     
                     {/* Soft ambient lighting inside the glass */}
-                    <div className="absolute inset-0 pointer-events-none rounded-l-[3.5rem] bg-[radial-gradient(ellipse_at_top_center,rgba(255,255,255,0.06)_0%,transparent_80%)]" />
+                    <div className="absolute inset-0 pointer-events-none rounded-l-[2rem] sm:rounded-l-[3rem] bg-[radial-gradient(ellipse_at_top_center,rgba(255,255,255,0.06)_0%,transparent_80%)]" />
                   </div>
 
                   {/* Right: Activity Log Zone */}
-                  <div className="p-6 pt-14">
+                  <div className="hidden md:block p-4 lg:p-5 pt-12 lg:pt-14">
                     <ActivityLog logs={logs} />
                   </div>
                 </div>

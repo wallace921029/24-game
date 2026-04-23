@@ -25,7 +25,7 @@ export function ArrangementZone({
   if (cards.length === 0) return null
 
   return (
-    <div className="flex gap-8 items-center justify-center min-h-[200px]">
+    <div className="flex flex-wrap gap-4 sm:gap-6 lg:gap-8 items-center justify-center min-h-[176px]">
       {cards.map((card) => {
         const isSelected = selectedId === card.id
         const isSuccess = phase === 'success' && cards.length === 1

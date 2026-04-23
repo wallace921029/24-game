@@ -30,9 +30,9 @@ export function GameTimer({ startTime, endTime, isRunning }: GameTimerProps) {
   }
 
   return (
-    <div className="px-6 py-2 rounded-2xl bg-black/20 backdrop-blur-md border border-white/5 flex flex-col items-center min-w-32 transition-all duration-500 shadow-xl">
+    <div className="px-4 sm:px-5 py-1.5 rounded-2xl bg-black/20 backdrop-blur-md border border-white/5 flex flex-col items-center min-w-28 sm:min-w-32 transition-all duration-500 shadow-xl">
       <span className="text-[10px] text-white/40 uppercase font-black tracking-widest mb-0.5">Time Elapsed</span>
-      <span className="text-2xl font-black text-white font-mono tabular-nums leading-none">
+      <span className="text-xl sm:text-2xl font-black text-white font-mono tabular-nums leading-none">
         {formatTime()}
       </span>
     </div>
